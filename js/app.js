@@ -9,7 +9,11 @@ $(document).ready(function(){
     return false;
   });
 
+  var zombieWords = $('#zombie').val();
+  var englishWords = $('#english').val();
+
   function zombify(){
+    englishWords = $('#english').val();
     // 1. lower-case "r" at the end of words replaced with "rh".
     // 2. an "a" or "A" by itself will be replaced with "hra".
     // 3. the starts of sentences are capitalised (the "start of a sentence" is any occurrence of
@@ -19,11 +23,23 @@ $(document).ready(function(){
     // 6. "o" or "O" is replaced by "rrrRr"
     // 7. "u" or "U" is replaced by "rrrrRr"
     // 8. "r" or "R' is replaced by "RR"
-    $('#zombie').val($('#english').val());
+    // 9. beginning and end appended with "ungggghhh"
+    // 10. every fourth space is replaced with ellipsis + "brains" + ellipsis
+    //$('#zombie').val($('#english').val());
+    switch(englishWords){
+      case "test":
+            zombieWords = "test unggh";
+            break;
+      default:
+            zombieWords = null;
+    }
+
+    $('#zombie').val(zombieWords);
   }
 
   function unzombify(){
 
+    $('#zombie').val(zombieWords);
 
   }
 
