@@ -17,7 +17,7 @@ $(document).ready(function(){
   var ruleOne = function(position){
 
     if(
-      new RegExp(/[r]+\b/).test(englishWords.substr(position,position+1))
+      new RegExp(/^[r]+\b/).test(englishWords.substr(position,position+1))
         ){
       return true;
     }
@@ -31,6 +31,8 @@ $(document).ready(function(){
   function zombify(){
     englishWords = $('#english').val();
     zombieWords = "";
+    $('#zombie').val("");
+
     //zombieWords = englishWords;
     // 1. lower-case "r" at the end of words replaced with "rh".
     // 2. an "a" or "A" by itself will be replaced with "hra".
@@ -49,7 +51,7 @@ $(document).ready(function(){
             zombieWords += "rh"
           }
 
-      else {zombieWord += englishWords[i]}
+      else {zombieWords += englishWords[i]}
 
       }
 
