@@ -13,6 +13,7 @@ $(document).ready(function(){
 
   var zombieWords = $('#zombie').val();
   var englishWords = $('#english').val();
+  var zombieMemory = "";
 
 // 1. lower-case "r" at the end of words replaced with "rh".
   var ruleOne = function(position){
@@ -69,10 +70,9 @@ $(document).ready(function(){
     return false;
   }
 
-  // for each, return false if no match otherwise return the new character.
-  // consider a generic function?
-  // consider using an include and this logic in a different file
 
+// translate from zombie to english
+  // whatever is in the english box
   function zombify(){
     englishWords = $('#english').val();
     zombieWords = "";
@@ -129,24 +129,34 @@ $(document).ready(function(){
 
   }
 
+  // translate from Zombie to English
+  // whatever is in the zombie box
   function unzombify(){
 
-    var toEnglishWords = ""
-      , zombieWordsChange = $('#zombie').val();
+    zombieWords = $('#zombie').val();
+    $('#zombie').val(zombieWords);
 
-    zombieWordsChange.replace(/ ... unggggghhh/,"");
-    zombieWordsChange.replace(/rrrrRr/,"u");
-    zombieWordsChange.replace(/rrrRr/,"o");
-    zombieWordsChange.replace(/rrRr/,"i");
-    zombieWordsChange.replace(/rr/,"e");
-    zombieWordsChange.replace(/hra/,"a");
-    zombieWordsChange.replace(/rh\b/,"r ");
+    console.log("zombieWords: " + zombieWords)
+    zombieWords = zombieWords.replace(/ ... unggggghhh/,"");
+    console.log("zombieWords: " + zombieWords)
+    zombieWords = zombieWords.replace(/rrrrRr/,"u");
+    console.log("zombieWords: " + zombieWords)
+    zombieWords = zombieWords.replace(/rrrRr/,"o");
+    console.log("zombieWords: " + zombieWords)
+    zombieWords = zombieWords.replace(/rrRr/,"i");
+    console.log("zombieWords: " + zombieWords)
+    zombieWords = zombieWords.replace(/rr/,"e");
+    console.log("zombieWords: " + zombieWords)
+    zombieWords = zombieWords.replace(/hra/,"a");
+    console.log("zombieWords: " + zombieWords)
+    zombieWords = zombieWords.replace(/rh\b/,"r ");
+    console.log("zombieWords: " + zombieWords)
 
-    $('#zombie').val(englishWords);
-    console.log("end of unzombify")
+    $('#english').val(zombieWords);
 
   }
 
   $('#english').on("keyup", zombify);
+  $('#zombie').on("keyup",unzombify)
 
 });
