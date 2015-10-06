@@ -131,6 +131,17 @@ $(document).ready(function(){
 
   function unzombify(){
 
+    var toEnglishWords = ""
+      , zombieWordsChange = $('#zombie').val();
+
+    zombieWordsChange.replace(/ ... unggggghhh/,"");
+    zombieWordsChange.replace(/rrrrRr/,"u");
+    zombieWordsChange.replace(/rrrRr/,"o");
+    zombieWordsChange.replace(/rrRr/,"i");
+    zombieWordsChange.replace(/rr/,"e");
+    zombieWordsChange.replace(/hra/,"a");
+    zombieWordsChange.replace(/rh\b/,"r ");
+
     $('#zombie').val(englishWords);
     console.log("end of unzombify")
 
