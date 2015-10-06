@@ -20,15 +20,9 @@ $(document).ready(function(){
     return false;
   }
 
-// 2. an "a" or "A" by itself will be replaced with "hra".
+// 2. an "a" or "A" will be replaced with "hra".
   var ruleTwo = function(position){
-    if(position === 0){
-      if(new RegExp(/[a]\b/i).test(englishWords.substr(0,2))){
-        return true;}
-      }
-      else {if(new RegExp(/\b[a]\b/i).test(englishWords.substr((position-1),3))){
-        return true;}
-    }
+      if(new RegExp(/[a]/i).test(englishWords.substr(position,1))){return true;}
     return false;
   }
 
@@ -105,8 +99,7 @@ $(document).ready(function(){
         zombieWords += "rh";}
       // rule 2
       else if(ruleTwo(i)){
-        zombieWords += "hra ";
-        i++;}
+        zombieWords += "hra";}
       // rule 3
       else if (ruleThree(i)){
         zombieWords += englishWords.substr(i,3).toUpperCase();
