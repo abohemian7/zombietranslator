@@ -1,6 +1,6 @@
 $(document).ready(function(){
   $('#zombie-to-english-btn').click(function(event){
-    unzombify();
+    if(!($('#english').val())){unzombify();}
     console.log("clicked zombie to english");
     return false;
   });
@@ -79,17 +79,11 @@ $(document).ready(function(){
     var spaces = 0;
     $('#zombie').val("");
 
-    //zombieWords = englishWords;
-
-
-    // 10. every fourth space (regardless of word boundary)
-    //     is replaced with ellipsis + "brains" + ellipsis
-    //$('#zombie').val($('#english').val());
   for(var i = 0; i < englishWords.length; i++){
       // rule 10
       if(englishWords[i]===" "){
         spaces++;
-        zombieWords += " ";
+        zombieWords += englishWords[i];
         if(spaces%4 === 0){
           zombieWords += " ... brains ... "
         }
@@ -137,19 +131,21 @@ $(document).ready(function(){
     $('#zombie').val(zombieWords);
 
     console.log("zombieWords: " + zombieWords)
-    zombieWords = zombieWords.replace(/ ... unggggghhh/,"");
+    zombieWords = zombieWords.replace(/ ... unggggghhh/g,"");
     console.log("zombieWords: " + zombieWords)
-    zombieWords = zombieWords.replace(/rrrrRr/,"u");
+    zombieWords = zombieWords.replace(/rrrrRr/g,"u");
     console.log("zombieWords: " + zombieWords)
-    zombieWords = zombieWords.replace(/rrrRr/,"o");
+    zombieWords = zombieWords.replace(/rrrRr/g,"o");
     console.log("zombieWords: " + zombieWords)
-    zombieWords = zombieWords.replace(/rrRr/,"i");
+    zombieWords = zombieWords.replace(/rrRr/g,"i");
     console.log("zombieWords: " + zombieWords)
-    zombieWords = zombieWords.replace(/rr/,"e");
+    zombieWords = zombieWords.replace(/rr/g,"e");
+    console.log("zombieWords: " + zombieWords);
+    zombieWords = zombieWords.replace(/RR/g,"r");
     console.log("zombieWords: " + zombieWords)
-    zombieWords = zombieWords.replace(/hra/,"a");
+    zombieWords = zombieWords.replace(/hra/g,"a");
     console.log("zombieWords: " + zombieWords)
-    zombieWords = zombieWords.replace(/rh\b/,"r ");
+    zombieWords = zombieWords.replace(/rh\b/g,"r ");
     console.log("zombieWords: " + zombieWords)
 
     $('#english').val(zombieWords);

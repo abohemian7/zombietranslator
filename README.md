@@ -1,71 +1,85 @@
-*The end is nigh!*
-But we can prepare. In this assignment we will begin preparing for the end by creating a simple zombie translator. This can be used by the living for either concealment or bartering and the living impaired will have an easier time asking for brains.
 
-The translator can be done as a series of regular expressions (Links to an external site.) or you can step through it character by character. You get a string and you transform that string.
+I struggled with Jasmine and Karma.  Hooking it up was completely arcane to me.  Also, I didn't implement functions that are easy to write test,
+since each was passed a position (evaluated against the string in $('#english').val()).
+
+With a little help I think this would be trivial, unfortunately I haven't extended myself for help yet because I've been busy with other things.
+I hope I can get some time with someone to better understand.  With 10-20 minutes of one-on-one I believe I would have been able to easily complete
+all aspects of this project.
 
 ## The Rules
 
-There are some sample rules contained in the skeleton source code and are as follows:
-
-lower-case "r" at the end of words replaced with "rh".
-an "a" or "A" is replaced with "hra". *Edited to be easier.*
-the starts of sentences are capitalized (the "start of a sentence" is any occurrence of ".!?", followed by a space, followed by a letter.)
-"e" or "E" is replaced by "rr"
-"i" or "I" is replaced by "rrRr"
-"o" or "O" is replaced by "rrrRr"
-"u" or "U" is replaced by "rrrrRr"
-"r" or "R" is replaced by "RR"
- ends of translation include "... unnngggghhh" if it is non-alphanumeric
- every fourth space includes " ... brains ... ",
+1. lower-case "r" at the end of words replaced with "rh".
+2.  an "a" or "A" is replaced with "hra". *Edited to be easier.*
+3. the starts of sentences are capitalized (the "start of a sentence" is any occurrence of ".!?", followed by a space, followed by a letter.)
+4. "e" or "E" is replaced by "rr"
+5. "i" or "I" is replaced by "rrRr"
+6. "o" or "O" is replaced by "rrrRr"
+7. "u" or "U" is replaced by "rrrrRr"
+8. "r" or "R" is replaced by "RR"
+9.  ends of translation include "... unnngggghhh" if it is non-alphanumeric
+10.  every fourth space includes " ... brains ... ",
   since zombies periodically space-out and think of brains
 
-There should be 10 rules total. So make 2 rules up. ~~Each rule should be a separate function.~~ *Edited out. Unnecessary*
+Expects:
 
-Make use of 3 different jasmine "expect" methods per rule. http://jasmine.github.io/2.3/introduction.html (Links to an external site.) Zombies are known to be able to repeat the same statements over and over. We want to make sure the rules are not written by the undead and aren't just a list of expect(myFunc('i')).toBe('rrRr');
+zombify:
+expect(zombify("test")).toBe("trrst");
+expect(zombify("broken")).toBe("bRRrrrRrkrrn");
+expect(zombify(null)).isUndefined(true);
 
-For example:
-```
-expect(30).toBe(30);
-expect(undefinedVariable).toBeUndefined();
-expect('30').toContain('0');
-expect(callback).not.toHaveBeenCalledWith(jasmine.stringMatching(/^bar$/));
-```
+unzombify:
+expect(unzombify(" ... brains ... ").toBe(" ");
+expect(unzombify("RRrrrRrt").toBe("rot);
+expect(unzombify("trrst").toBe("test");
+
+Rule 1:
+expect(ruleOne("r ")).toBe(true);
+expect(ruleOne(" r")).toBe(false);
+expect(ruleOne("R")).toBe(false);
+
+Rule 2:
+expect(ruleTwo("a")).toBe(true);
+expect(ruleTwo("&")).toBe(false);
+expect(ruleTwo("A")).toBe(true);
+
+Rule 3:
+expect(ruleThree(".ab")).toBe(false);
+expect(ruleThree("&")).toBe(false);
+expect(ruleThree("A")).toBe(true);
+
+Rule 4:
+expect(ruleFour("e")).toBe(true);
+expect(ruleFour("E")).toBe(true);
+expect(ruleFour(null)).toBe(false);
+
+Rule 5:
+expect(ruleFive("I")).toBe(true);
+expect(ruleFive("ii")).toBe(true);
+expect(ruleFive(null)).toBe(false);
+
+Rule 6:
+expect(ruleSix("U")).toBe(true);
+expect(ruleSix("ui")).toBe(true);
+expect(ruleSix(null)).toBe(false);
+
+Rule 7:
+expect(ruleSeven("UU")).toBe(true);
+expect(ruleSeven"turn")).toBe(true);
+expect(ruleSeven(null)).toBe(false);
+
+Rule 8:
+expect(ruleEight("RrRr")).toBe(true);
+expect(ruleEight("r")).toBe(true);
+expect(ruleEight(null)).toBe(false);
+
+Rule 9:
+expect(ruleNine("UU ")).toBe(true);
+expect(ruleNine("do this")).toBe(true);
+expect(ruleNine("true")).toBe(false);
+
+Rule 10:
+expect(ruleTen("UU    ")).toBe(true);
+expect(ruleTen("do this one more time, yeah, one more time")).toBe(true);
+expect(ruleTen("true")).toBe(false);
 
 
-What really matters is the structure. The last thing the resistance needs is for zombies to write false translators to trick us. We need to make sure a human, professional developer created the zombie translator. We all know zombies don't know how to write modular code, and they never test.
-
-Each of the rules needs to be modular enough to test separately. There should also be a test for the entire function.
-
-### Rules Shouldn't Overlap
-
-Running most of these rules is going to produce some "r"s. You shouldn't be running any of the "r" rules on the r's that are produced from other rules. Yes, that sounds confusing. Here's some examples to help you out. Maybe you could write some tests with these?
-```
-Terror -> TrrRRRRrrrRrrh
-
-JaZahn -> JhraZhrahn
-
-petty -> prrtty
-
-pretty -> pRRrrtty
-
-brains -> bRRhrarrRrns
-
-onomatopoeia  -> rrrRrnrrrRrmhratrrrRrprrrRrrrrrRrhra
-```
-
-## Starting point
-You can use this repository for a starting point: https://github.com/CSCI-E32/zombietranslator (Links to an external site.)
-
-## Submission
-Zip up the project when you're done and submit the zip file.
-
-## Have to use
-You have to use RequireJS and Jasmine and Karma.
-
-Tests need to be run with Karma. Jasmine Tests. On RequireJS modules.
-
-## Extra credit
-*20pts*
-If you correctly "unzombify" (with tests).
-
-*NOTE: not everything will unzombify perfectly. That's okay. My rules aren't perfect. Best effort on this. *
